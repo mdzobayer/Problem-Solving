@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1453962671 source:c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\04 classdestruction\classdestructor.cpp
+	"PersonDestructor.h"
+
+1454088648 c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\04 classdestruction\persondestructor.h
+
+1454089040 source:c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\04 classdestruction\persondestructor.cpp
+	"PersonDestructor.h"
+	<string.h>
+

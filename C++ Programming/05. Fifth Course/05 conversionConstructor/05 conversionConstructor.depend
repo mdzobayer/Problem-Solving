@@ -1,0 +1,21 @@
+# depslib dependency file v1.0
+1455406141 source:c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\05 conversionconstructor\conversionconstructor.cpp
+	"PersonConversion.h"
+	"PersonConversion.h"
+
+1455406218 source:c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\05 conversionconstructor\employeeconversion.cpp
+	"EmployeeConversion.h"
+
+1455408593 c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\05 conversionconstructor\employeeconversion.h
+	<string>
+
+1455405886 source:c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\05 conversionconstructor\personconversion.cpp
+	"PersonConversion.h"
+
+1455408593 source:c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\05 conversionconstructor\employeeconversion.h
+	<string>
+
+1455405256 c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\05 conversionconstructor\personconversion.h
+	<string>
+	"EmployeeConversion.h"
+

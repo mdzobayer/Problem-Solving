@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1461344487 source:c:\users\zobayer\desktop\studentscgpa\main.c
+	"Utility.h"
+
+1461344393 c:\users\zobayer\desktop\studentscgpa\utility.h
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<unistd.h>
+
+1461344564 source:c:\users\zobayer\desktop\studentscgpa\utility.c
+	"Utility.h"
+

@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1456266015 source:c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\06 pointerstofunction\carfuncptr.cpp
+	"CarFuncPtr.h"
+
+1456262872 c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\06 pointerstofunction\carfuncptr.h
+	<string>
+
+1456376382 source:c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\06 pointerstofunction\pointerstofunctions.cpp
+	<iostream>
+	<vector>
+	"CarFuncPtr.h"
+	<algorithm>
+

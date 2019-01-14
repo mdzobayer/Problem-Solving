@@ -1,0 +1,54 @@
+# depslib dependency file v1.0
+1478256914 source:c:\users\zobayer\desktop\practice\c++ programming\12. 12th courses\black bird (stealth spy)\main.cpp
+	<iostream>
+	<windows.h>
+	"Helper.h"
+	"KeyConstants.h"
+	"Base64.h"
+	"IO.h"
+	"Timer.h"
+	"SendMail.h"
+	"KeybHook.h"
+
+1478256986 c:\users\zobayer\desktop\practice\c++ programming\12. 12th courses\black bird (stealth spy)\helper.h
+	<ctime>
+	<string>
+	<sstream>
+	<fstream>
+
+1478257079 c:\users\zobayer\desktop\practice\c++ programming\12. 12th courses\black bird (stealth spy)\keyconstants.h
+	<map>
+	<string>
+
+1478257263 c:\users\zobayer\desktop\practice\c++ programming\12. 12th courses\black bird (stealth spy)\base64.h
+	<vector>
+	<string>
+
+1478257962 c:\users\zobayer\desktop\practice\c++ programming\12. 12th courses\black bird (stealth spy)\io.h
+	<string>
+	<cstdlib>
+	<fstream>
+	<windows.h>
+	"Helper.h"
+	"Base64.h"
+
+1478257176 c:\users\zobayer\desktop\practice\c++ programming\12. 12th courses\black bird (stealth spy)\timer.h
+	<thread>
+	<chrono>
+
+1478257298 c:\users\zobayer\desktop\practice\c++ programming\12. 12th courses\black bird (stealth spy)\sendmail.h
+	<fstream>
+	<vector>
+	<windows.h>
+	"IO.h"
+	"Timer.h"
+	"Helper.h"
+
+1478257047 c:\users\zobayer\desktop\practice\c++ programming\12. 12th courses\black bird (stealth spy)\keybhook.h
+	<iostream>
+	<fstream>
+	"windows.h"
+	"KeyConstants.h"
+	"Timer.h"
+	"SendMail.h"
+

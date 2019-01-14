@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1456388259 source:c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\06 introductiontolambdas\carlambda.cpp
+	"CarLambda.h"
+
+1456388245 c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\06 introductiontolambdas\carlambda.h
+	<string>
+
+1456388330 source:c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\06 introductiontolambdas\introtolambda.cpp
+	<iostream>
+	<vector>
+	"CarLambda.h"
+

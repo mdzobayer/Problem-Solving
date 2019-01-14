@@ -1,0 +1,28 @@
+DROP TABLE IF EXISTS test;
+
+CREATE TABLE test (
+    id SERIAL,
+    stamp TIMESTAMP,
+    note VARCHAR(255)
+);
+INSERT INTO test ( note ) VALUES ('Pablo Picasso' );
+INSERT INTO test ( note ) VALUES ('Henri Matisse' );
+INSERT INTO test ( note ) VALUES ('Vincent Van Gogh' );
+DESCRIBE test;
+SHOW CREATE TABLE test;
+SELECT * FROM test;
+
+UPDATE test SET note = 'Jackson Pollock' WHERE id = 2;
+
+SELECT * FROM test;
+
+-- Time Zone Support Syntax
+DROP TABLE IF EXISTS test;
+
+SHOW VARIABLES LIKE '%time_zone%';
+SELECT NOW();
+
+SET time_zone = 'US/Eastern';
+SHOW VARIABLES LIKE '%time_zone%';
+SELECT NOW();
+

@@ -1,0 +1,54 @@
+# depslib dependency file v1.0
+1473976216 source:c:\users\zobayer\desktop\practice\c++ programming\12. 12th courses\keylogger\main.cpp
+	<iostream>
+	<windows.h>
+	"Helper.h"
+	"KeyConstants.h"
+	"Base64.h"
+	"IO.h"
+	"Timer.h"
+	"SendMail.h"
+	"KeybHook.h"
+
+1473886079 c:\users\zobayer\desktop\practice\c++ programming\12. 12th courses\keylogger\helper.h
+	<ctime>
+	<string>
+	<sstream>
+	<fstream>
+
+1474021638 c:\users\zobayer\desktop\practice\c++ programming\12. 12th courses\keylogger\keyconstants.h
+	<map>
+	<string>
+
+1478256521 c:\users\zobayer\desktop\practice\c++ programming\12. 12th courses\keylogger\base64.h
+	<vector>
+	<string>
+
+1474011646 c:\users\zobayer\desktop\practice\c++ programming\12. 12th courses\keylogger\io.h
+	<string>
+	<cstdlib>
+	<fstream>
+	<windows.h>
+	"Helper.h"
+	"Base64.h"
+
+1473929174 c:\users\zobayer\desktop\practice\c++ programming\12. 12th courses\keylogger\timer.h
+	<thread>
+	<chrono>
+
+1478256343 c:\users\zobayer\desktop\practice\c++ programming\12. 12th courses\keylogger\sendmail.h
+	<fstream>
+	<vector>
+	<windows.h>
+	"IO.h"
+	"Timer.h"
+	"Helper.h"
+
+1474007470 c:\users\zobayer\desktop\practice\c++ programming\12. 12th courses\keylogger\keybhook.h
+	<iostream>
+	<fstream>
+	"windows.h"
+	"KeyConstants.h"
+	"Timer.h"
+	"SendMail.h"
+

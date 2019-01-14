@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1456691620 source:c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\06 smartpointers\uniqueptr.cpp
+	<iostream>
+	<memory>
+
+1456721642 source:c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\06 smartpointers\sharedptr.cpp
+	<iostream>
+	<memory>
+
+1473365971 source:c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\06 smartpointers\smartptr.cpp
+	<iostream>
+
+1473366401 source:c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\06 smartpointers\weakptr.cpp
+	<iostream>
+	<memory>
+

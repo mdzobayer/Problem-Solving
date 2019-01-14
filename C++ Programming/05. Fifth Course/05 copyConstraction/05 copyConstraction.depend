@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1454381010 source:c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\05 copyconstraction\copyconstruction.cpp
+	<iostream>
+	<vector>
+	"PersonCC.h"
+
+1454378259 c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\05 copyconstraction\personcc.h
+
+1454379406 source:c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\05 copyconstraction\personcc.cpp
+	"PersonCC.h"
+	<string.h>
+

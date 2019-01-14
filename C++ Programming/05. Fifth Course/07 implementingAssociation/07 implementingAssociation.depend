@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1456827884 source:c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\07 implementingassociation\implementingassociation.cpp
+	"TrainerAssociation.h"
+	"LocationAssociation.h"
+	"CourseAssociation.h"
+	"DelegateAssociation.h"
+
+1456827086 c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\07 implementingassociation\trainerassociation.h
+	<string>
+
+1456856976 c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\07 implementingassociation\locationassociation.h
+	<string>
+
+1456828006 c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\07 implementingassociation\courseassociation.h
+	"DelegateAssociation.h"
+	"TrainerAssociation.h"
+	"LocationAssociation.h"
+	<map>
+	<iostream>
+
+1456827022 c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\07 implementingassociation\delegateassociation.h
+	<string>
+

@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1455403706 source:c:\users\zobayer\desktop\practice\c++ programming\05. fifth course\05 reducingcopying\reducingcopying.cpp
+	<iostream>
+	<cstring>
+	<vector>
+	<list>
+	<queue>
+

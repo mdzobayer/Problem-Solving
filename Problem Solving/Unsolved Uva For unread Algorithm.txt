@@ -1,0 +1,5 @@
+113 Power of Cryptography
+
+11057 Extract Number
+
+12136
