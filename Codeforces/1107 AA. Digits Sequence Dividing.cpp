@@ -2,12 +2,10 @@
 
 using namespace std;
 
-void solve() {
-
-}
-
-
 int main() {
+
+    freopen("in.txt", "r", stdin);
+    //freopen("in.txt", "r", stdin);
 
     string s;
     int n, i, q;
