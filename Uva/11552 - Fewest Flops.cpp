@@ -26,13 +26,40 @@ int solve(int cGroup, int preChar) {
 
     for (i = 0; i < 26; ++i) {
         if (!groups[cGroup][i]) continue;
+        
+
         ans1 = uc;
-        if(i == preChar) --ans1;
+        //if(i == preChar) --ans1;
 
         for (j = 0; j < 26; ++j) {
             if (!groups[cGroup][j]) continue;
+            if (i == j && uc > 1) continue;
 
-            ans2 = min(ans2, solve(cGroup - 1, j) + ans1);
+            if(ans1 > 1) {
+                if (i == preChar) {
+                    ans2 = min(ans2, solve(cGroup - 1, j) + ans1 - 1);
+                }
+                else {
+                    ans2 = min(ans2, solve(cGroup - 1, j) + ans1);
+                }
+            }
+            else {
+                if (i == preChar) {
+                    ans2 = min(ans2, solve(cGroup - 1, preChar));
+                }
+                else {
+                    ans2 = min(ans2, solve(cGroup - 1, j) + 1);
+                }
+            }
+
+            // if (i != j)
+            //     ans2 = min(ans2, solve(cGroup - 1, j) + ans1);
+            // else if(preChar == j) {
+            //     ans2 = min(ans2, solve(cGroup - 1, j));
+            // }
+            // else {
+            //     ans2 = min(ans2, solve(cGroup - 1, j) + ans1);
+            // }
         }
     }
 
@@ -41,7 +68,8 @@ int solve(int cGroup, int preChar) {
 
 int main() {
 
-    freopen("in.txt", "r", stdin);
+    //freopen("in.txt", "r", stdin);
+    //freopen("out.txt", "w", stdout);
 
     int test, i, t, len, index, ans;
     string s;
@@ -51,19 +79,23 @@ int main() {
         s = "";
 
         scanf("%d", &k);
-        getline(cin, s);
+        cin >> s;
 
         memset(groups, false, sizeof(groups));
         avaliableG = 0;
         len = s.length();
+        //cerr << "k = " << k << endl;
         for (i = 0; i < len; ++i) {
-            index = i / k;
+            index = (int)i / k;
+            //cerr << index << " ";
             groups[index][s[i]-'a'] = true;
         }
+        //cerr << endl;
         avaliableG = index;
         memset(dp, -1, sizeof(dp));
 
-        ans = solve(avaliableG, 0);
+        ans = solve(avaliableG, 26);
+        cout << ans << endl;
     }
     
     return (0);
