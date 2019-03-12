@@ -1,11 +1,9 @@
 #include <bits/stdc++.h>
 
-#define SIZE 350+5
+#define SIZE 400+5
 using namespace std;
 
-int n, source, terminal;
-
-int rGraph[SIZE][SIZE];
+int rGraph[SIZE][SIZE], n, source, terminal;
 
 bool bfs(int parent[SIZE]) {
 
@@ -30,7 +28,7 @@ bool bfs(int parent[SIZE]) {
                 q.push(v);
                 parent[v] = u;
                 visited[v] = true;
-                if (v == terminal) return true;
+                //if (v == terminal) return true;
             }
         }
     }
@@ -50,17 +48,20 @@ int fordFulkerson () {
     while(bfs(parent)) {
 
         pathFlow = INT_MAX;
+        //cout << "Path print: " ;
         for (v = terminal; v != source; v = parent[v]) {
             u = parent[v];
             pathFlow = min(pathFlow, rGraph[u][v]);
+            //cout << v << " ";
         }
+        //cout << source << endl;
 
         for (v = terminal; v != source; v = parent[v]) {
             u = parent[v];
             rGraph[u][v] -= pathFlow;
             rGraph[v][u] += pathFlow;
         }
-
+        //cout << "pathFlow = " << pathFlow << endl;
         maxFlow += pathFlow;
     }
 
@@ -78,35 +79,39 @@ int getTShirtSize(const string & s) {
 
 int main() {
 
-    freopen("in.txt", "r", stdin);
+    //freopen("in.txt", "r", stdin);
 
-    int test, t, i, color, cl, conn, choice1, choice2;
+    int test, t, i, color, cl, conn, choice1, choice2, cNode;
     string s1, s2;
     cin >> test;
-    cin.ignore();
+    //cin.ignore();
     for (t = 1; t <= test; ++t) {
-        source = 0;
-        terminal = 1;
+        source = 1;
+        terminal = 2;
         memset(rGraph, 0, sizeof(rGraph));
 
         cin >> color >> n;
         cin.ignore();
         //cout << "Color: " << color << " Nodes: " << n << endl;
 
+        cNode = 2;
+
         for (i = 1; i <= n; ++i) {
             cin >> s1 >> s2;
             //cout << s1 << " " << s2 << endl;
 
+            ++cNode;
+
             // for source and terminal
-            rGraph[source][i + 1] = 1;
+            rGraph[source][cNode] = 1;
 
             // for different color with different size
             choice1 = getTShirtSize(s1);
             choice2 = getTShirtSize(s2);
-            conn = 0;
+            conn = 70;
             for (cl = 0; cl < color; ++cl) {
-                rGraph[i + 1][conn + choice1] = 1;
-                rGraph[i + 1][conn + choice2] = 1;
+                rGraph[cNode][conn + choice1] = 1;
+                rGraph[cNode][conn + choice2] = 1;
 
                 //rGraph[conn + choice1][i + 1] = 1;
                 //rGraph[conn + choice2][i + 1] = 1;
@@ -114,10 +119,14 @@ int main() {
                 rGraph[conn + choice1][terminal] = 1;
                 rGraph[conn + choice2][terminal] = 1;
 
-                conn += color;
+                conn += 6;
             }
         }
+        //rGraph[source][terminal] = 0;
+        //rGraph[terminal][source] = 0;
+
         int ans = fordFulkerson();
+        //cout << "Ans = " << ans << endl;
         cout << "Case " << t << ": ";
         if (ans == n)
             cout << "YES" << endl;
