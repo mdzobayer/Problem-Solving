@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #define SIZE 250
+#define INTMAX 100000000
 
 using namespace std;
 
@@ -41,6 +42,7 @@ bool bfs(int parent[SIZE]) {
                 q.push(v);
                 parent[v] = u;
                 visited[v] = true;
+                if (v == terminal) return true;
             }
         }
     }
@@ -51,8 +53,9 @@ bool bfs(int parent[SIZE]) {
 int main() {
 
     freopen("in.txt", "r", stdin);
+    //freopen("out.txt", "w", stdout);
 
-    int test, t, i, j, k, total;
+    int test, t, i, j, k, total, len, pathLen;
 
     int maxFlow, pathFlow, v, u;
     int parent[SIZE];
@@ -69,14 +72,14 @@ int main() {
         int nodeNum = 4;
         for (i = 1; i <= n; ++i) {
             scanf("%d %d %d %d", &ice[i].x, &ice[i].y, &ice[i].ni, &ice[i].mi);
-            cerr << ice[i].x << " " << ice[i].y << " " << ice[i].ni << " " << ice[i].mi << endl;
+            //cerr << ice[i].x << " " << ice[i].y << " " << ice[i].ni << " " << ice[i].mi << endl;
             ice[i].inpost = ++nodeNum;
             ice[i].outpost = ++nodeNum;
 
             total += ice[i].ni;
 
             graph[ice[i].inpost] [ice[i].outpost] = ice[i].mi;
-            graph[source][ice[i].inpost] = INT_MAX;
+            graph[source][ice[i].inpost] = ice[i].ni;
         }
 
         for (i = 1; i <= n; ++i) {
@@ -84,61 +87,68 @@ int main() {
                 if (i == j) continue;
 
                 if(iceToIce(i, j)) {
-                    cerr << "iceToIce = " << i << " " << j << endl;
-                    graph[ice[i].outpost][ice[j].inpost] = INT_MAX;
-                    graph[ice[j].outpost][ice[i].inpost] = INT_MAX;
+                    //cerr << "iceToIce = " << i << " " << j << endl;
+                    graph[ice[i].outpost][ice[j].inpost] = INTMAX;
+                    graph[ice[j].outpost][ice[i].inpost] = INTMAX;
                 }
             }
         }
 
         possibleIces.clear();
-
+        len = 2 * n + 6;
         for (i = 1; i <= n; ++i) {
 
             terminal = ice[i].inpost;
             //rGraph[source][terminal] = 0;
 
-            for (j = 0; j < SIZE; ++j) {
-                for (k = 0; k < SIZE; ++k) {
+            for (j = 0; j < len; ++j) {
+                for (k = 0; k < len; ++k) {
                     rGraph[j][k] = graph[j][k];
                 }
             }
             maxFlow = 0;
-            cerr << "MaxFlow = " << maxFlow << endl;
+            //cerr << "MaxFlow = " << maxFlow << endl;
 
             while(bfs(parent)) {
-                pathFlow = INT_MAX;
+                pathFlow = INTMAX;
+                pathLen = 0;
 
                 for (v = terminal; v != source; v = parent[v]) {
                     u = parent[v];
                     pathFlow = min(pathFlow, rGraph[u][v]);
+                    ++pathLen;
                 }
-                cerr << "pathFlow = " << pathFlow << endl;
+                //cerr << "pathFlow = " << pathFlow << endl;
                 for (v = terminal; v != source; v = parent[v]) {
                     u = parent[v];
                     rGraph[u][v] -= pathFlow;
                     rGraph[v][u] += pathFlow;
                 }
 
-                if (parent[terminal] == source) continue;
+                //if (parent[terminal] == source) continue;
+
+                //pathFlow += ;
+                //pathFlow += ;
 
                 maxFlow += pathFlow;
 
             }
-            printf("Total = %d maxFlow = %d\n", total, maxFlow);
+
+            //printf("Total = %d maxFlow = %d\n", total, maxFlow);
             if(total == maxFlow) {
                 possibleIces.push_back(i);
             }
 
         }
 
+        len = possibleIces.size();
         printf("Case %d: ", t);
-        if (possibleIces.size() == 0) {
+        if (len == 0) {
             printf("-1\n");
         }
         else {
-            for (i = 0; i < possibleIces.size(); ++i) {
-                printf(" %d", possibleIces[i]);
+            for (i = 0; i < len; ++i) {
+                printf(" %d", possibleIces[i] - 1);
             }
             printf("\n");
         }
