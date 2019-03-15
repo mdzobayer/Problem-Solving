@@ -11,17 +11,28 @@ void BreasenhamCircle(int Cx, int Cy, int r)
     int x = 0, y = r;
     int d = 3 - (2 * r);
 
+    printf("D\tX-axis\tY-axis\n");
+    
+
     while(x < y) {
         //DrawCircle(Cx, Cy, x, y);
         putpixel(Cx + x,Cy + y,GREEN);
+        printf("%d\t%d\t%d\n", d,Cx + x,Cy + y);
         putpixel(Cx + x,Cy - y,GREEN);
+        printf("%d\t%d\t%d\n", d,Cx + x,Cy - y);
         putpixel(Cx - x,Cy + y,GREEN);
+        printf("%d\t%d\t%d\n", d,Cx - x,Cy + y);
         putpixel(Cx - x,Cy - y,GREEN);
+        printf("%d\t%d\t%d\n", d,Cx - x,Cy - y);
 
         putpixel(Cx + y,Cy + x,GREEN);
+        printf("%d\t%d\t%d\n", d,Cx + y,Cy + x);
         putpixel(Cx + y,Cy - x,GREEN);
+        printf("%d\t%d\t%d\n", d,Cx + y,Cy - x);
         putpixel(Cx - y,Cy + x,GREEN);
+        printf("%d\t%d\t%d\n", d,Cx - y,Cy + x);
         putpixel(Cx - y,Cy - x,GREEN);
+        printf("%d\t%d\t%d\n", d,Cx - y,Cy - x);
 
         ++x;
 
@@ -34,14 +45,22 @@ void BreasenhamCircle(int Cx, int Cy, int r)
         }
         //DrawCircle(Cx, Cy, x, y);
         putpixel(Cx + x,Cy + y,GREEN);
+        printf("%d\t%d\t%d\n", d,Cx + x,Cy + y);
         putpixel(Cx + x,Cy - y,GREEN);
+        printf("%d\t%d\t%d\n", d,Cx + x,Cy - y);
         putpixel(Cx - x,Cy + y,GREEN);
+        printf("%d\t%d\t%d\n", d,Cx - x,Cy + y);
         putpixel(Cx - x,Cy - y,GREEN);
+        printf("%d\t%d\t%d\n", d,Cx - x,Cy - y);
 
         putpixel(Cx + y,Cy + x,GREEN);
+        printf("%d\t%d\t%d\n", d,Cx + y,Cy + x);
         putpixel(Cx + y,Cy - x,GREEN);
+        printf("%d\t%d\t%d\n", d,Cx + y,Cy - x);
         putpixel(Cx - y,Cy + x,GREEN);
+        printf("%d\t%d\t%d\n", d,Cx - y,Cy + x);
         putpixel(Cx - y,Cy - x,GREEN);
+        printf("%d\t%d\t%d\n", d,Cx - y,Cy - x);
 
         //++x;
     }
