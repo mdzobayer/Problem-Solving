@@ -8,7 +8,7 @@ struct icePiece {
     int x, y, ni, mi, inpost, outpost;
 };
 
-int n, source, terminal, rGraph[SIZE][SIZE], graph[SIZE][SIZE];
+int n, source, terminal, rGraph[SIZE][SIZE], graph[SIZE][SIZE], maxNode;
 double d;
 icePiece ice[100+5];
 vector < int > possibleIces;
@@ -36,7 +36,7 @@ bool bfs(int parent[SIZE]) {
         u = q.front();
         q.pop();
 
-        for (v = 0; v < SIZE; ++v) {
+        for (v = 0; v < maxNode; ++v) {
             if (visited[v] == false && rGraph[u][v] > 0) {
                 //cerr << "cNode = " << u << " nextNode = " << v << endl;
                 q.push(v);
@@ -52,7 +52,7 @@ bool bfs(int parent[SIZE]) {
 
 int main() {
 
-    freopen("in.txt", "r", stdin);
+    //freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
 
     int test, t, i, j, k, total, len, pathLen;
@@ -88,21 +88,22 @@ int main() {
 
                 if(iceToIce(i, j)) {
                     //cerr << "iceToIce = " << i << " " << j << endl;
-                    graph[ice[i].outpost][ice[j].inpost] = INTMAX;
-                    graph[ice[j].outpost][ice[i].inpost] = INTMAX;
+                    graph[ice[i].outpost][ice[j].inpost] = INT_MAX;
+                    graph[ice[j].outpost][ice[i].inpost] = INT_MAX;
                 }
             }
         }
 
         possibleIces.clear();
-        len = 2 * n + 6;
+        maxNode = 2 * n + 6;
         for (i = 1; i <= n; ++i) {
 
             terminal = ice[i].inpost;
             //rGraph[source][terminal] = 0;
+            //memset(rGraph, 0, sizeof(rGraph));
 
-            for (j = 0; j < len; ++j) {
-                for (k = 0; k < len; ++k) {
+            for (j = 0; j < maxNode; ++j) {
+                for (k = 0; k < maxNode; ++k) {
                     rGraph[j][k] = graph[j][k];
                 }
             }
@@ -110,7 +111,7 @@ int main() {
             //cerr << "MaxFlow = " << maxFlow << endl;
 
             while(bfs(parent)) {
-                pathFlow = INTMAX;
+                pathFlow = INT_MAX;
                 pathLen = 0;
 
                 for (v = terminal; v != source; v = parent[v]) {
@@ -142,9 +143,9 @@ int main() {
         }
 
         len = possibleIces.size();
-        printf("Case %d: ", t);
+        printf("Case %d:", t);
         if (len == 0) {
-            printf("-1\n");
+            printf(" -1\n");
         }
         else {
             for (i = 0; i < len; ++i) {
