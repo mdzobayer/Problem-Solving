@@ -42,6 +42,8 @@ bool isValid(int x, int y) {
 
 int main() {
 
+    freopen("in.txt", "r", stdin);
+
     int n, m, i, x, j, y, time, tn, turnAngle, currentTankID, currentTime;
     string name, order, singleCommand;
 
@@ -96,22 +98,144 @@ int main() {
                     aBullet = bullets.top();
                     if (aBullet.time <= currentTime) {
                         bullets.pop();
-                        if (aBullet.angle == 0) {
 
+                        if (aBullet.angle == 0) {
+                            if (isValid(aBullet.X - 10, aBullet.Y)) {
+                                if (board[aBullet.X - 10][aBullet.Y] == 0) {
+                                    if (board[aBullet.X][aBullet.Y] == 0) {
+                                        // No Obstacle
+                                        if (isValid(aBullet.X + 20, aBullet.Y)) {
+                                            newBullet = aBullet;
+                                            newBullet.X += 20;
+                                            newBullet.time += 1;
+                                            bullets.push(newBullet);
+                                        }
+                                        else if (isValid(aBullet.X + 10, aBullet.Y)) {
+                                            newBullet = aBullet;
+                                            newBullet.X += 10;
+                                            newBullet.time += 1;
+                                            bullets.push(newBullet);
+                                        }
+                                    }
+                                    // Obstacle Found
+                                    else {
+                                        //board[aBullet.X][aBullet.Y] = 0;
+                                        tanks[aBullet.tankid].alive = false;
+                                    }
+                                }
+                                // Obstacle Found
+                                else if(board[aBullet.X - 10][aBullet.Y] != aBullet.tankid){
+                                    //board[aBullet.X - 10][aBullet.Y] = 0;
+                                    tanks[aBullet.tankid].alive = false;
+                                }
+                            }
                         }
                         else if (aBullet.angle == 90) {
-
+                            if (isValid(aBullet.X, aBullet.Y - 10)) {
+                                if (board[aBullet.X][aBullet.Y - 10] == 0) {
+                                    if (board[aBullet.X][aBullet.Y] == 0) {
+                                        // No Obstacle
+                                        if (isValid(aBullet.X, aBullet.Y + 20)) {
+                                            newBullet = aBullet;
+                                            newBullet.Y += 20;
+                                            newBullet.time += 1;
+                                            bullets.push(newBullet);
+                                        }
+                                        else if (isValid(aBullet.X, aBullet.Y + 10)) {
+                                            newBullet = aBullet;
+                                            newBullet.Y += 10;
+                                            newBullet.time += 1;
+                                            bullets.push(newBullet);
+                                        }
+                                    }
+                                    // Obstacle Found
+                                    else {
+                                        //board[aBullet.X][aBullet.Y] = 0;
+                                        tanks[aBullet.tankid].alive = false;
+                                    }
+                                }
+                                // Obstacle Found
+                                else if(board[aBullet.X][aBullet.Y - 10] != aBullet.tankid){
+                                    //board[aBullet.X][aBullet.Y - 10] = 0;
+                                    tanks[aBullet.tankid].alive = false;
+                                }
+                            }
                         }
                         else if (aBullet.angle == 180) {
-
+                            if (isValid(aBullet.X + 10, aBullet.Y)) {
+                                if (board[aBullet.X + 10][aBullet.Y] == 0) {
+                                    if (board[aBullet.X][aBullet.Y] == 0) {
+                                        // No Obstacle
+                                        if (isValid(aBullet.X - 20, aBullet.Y)) {
+                                            newBullet = aBullet;
+                                            newBullet.X -= 20;
+                                            newBullet.time += 1;
+                                            bullets.push(newBullet);
+                                        }
+                                        else if (isValid(aBullet.X - 10, aBullet.Y)) {
+                                            newBullet = aBullet;
+                                            newBullet.X -= 10;
+                                            newBullet.time += 1;
+                                            bullets.push(newBullet);
+                                        }
+                                    }
+                                    // Obstacle Found
+                                    else {
+                                        //board[aBullet.X][aBullet.Y] = 0;
+                                        tanks[aBullet.tankid].alive = false;
+                                    }
+                                }
+                                // Obstacle Found
+                                else if(board[aBullet.X + 10][aBullet.Y] != aBullet.tankid){
+                                    //board[aBullet.X + 10][aBullet.Y] = 0;
+                                    tanks[aBullet.tankid].alive = false;
+                                }
+                            }
                         }
                         else {
-                            
+                            if (isValid(aBullet.X, aBullet.Y + 10)) {
+                                if (board[aBullet.X][aBullet.Y + 10] == 0) {
+                                    if (board[aBullet.X][aBullet.Y] == 0) {
+                                        // No Obstacle
+                                        if (isValid(aBullet.X, aBullet.Y - 20)) {
+                                            newBullet = aBullet;
+                                            newBullet.Y -= 20;
+                                            newBullet.time += 1;
+                                            bullets.push(newBullet);
+                                        }
+                                        else if (isValid(aBullet.X, aBullet.Y - 10)) {
+                                            newBullet = aBullet;
+                                            newBullet.Y -= 10;
+                                            newBullet.time += 1;
+                                            bullets.push(newBullet);
+                                        }
+                                    }
+                                    // Obstacle Found
+                                    else {
+                                        //board[aBullet.X][aBullet.Y] = 0;
+                                        tanks[aBullet.tankid].alive = false;
+                                    }
+                                }
+                                // Obstacle Found
+                                else if(board[aBullet.X][aBullet.Y + 10] != aBullet.tankid){
+                                    //board[aBullet.X][aBullet.Y + 10] = 0;
+                                    tanks[aBullet.tankid].alive = false;
+                                }
+                            }
                         }
                         
                     }
                     else flag = false;
                 }
+
+                // Obstacle Remove from board
+                for (tn = 1; tn <= n; ++tn) {
+                    if (tanks[tn].alive == false) {
+                        board[tanks[tn].X][tanks[tn].Y] = 0;
+                    }
+                }
+
+
                 // Process Running Tanks
                 for (tn = 1; tn <= n; ++tn) {
                     if (tanks[tn].alive && tanks[tn].moving) {
@@ -152,9 +276,215 @@ int main() {
             while(allCommands >> singleCommand) {
                 if(singleCommand == "TURN") {
                     allCommands >> turnAngle;
+                    tanks[currentTankID].angle = (tanks[currentTankID].angle + turnAngle + 360) % 360;
                 }
-                else {
+                else if(singleCommand == "STOP") {
+                    tanks[currentTankID].moving = false;
+                }
+                else if(singleCommand == "MOVE") {
+                    tanks[currentTankID].moving = true;
+                }
+            }
+        }
+        {
+            for (currentTime; currentTime <= time; ++currentTime) {
+                // Processing Bullet
+                bool flag = true;
+                while(flag) {
+                    aBullet = bullets.top();
+                    if (aBullet.time <= currentTime) {
+                        bullets.pop();
 
+                        if (aBullet.angle == 0) {
+                            if (isValid(aBullet.X - 10, aBullet.Y)) {
+                                if (board[aBullet.X - 10][aBullet.Y] == 0) {
+                                    if (board[aBullet.X][aBullet.Y] == 0) {
+                                        // No Obstacle
+                                        if (isValid(aBullet.X + 20, aBullet.Y)) {
+                                            newBullet = aBullet;
+                                            newBullet.X += 20;
+                                            newBullet.time += 1;
+                                            bullets.push(newBullet);
+                                        }
+                                        else if (isValid(aBullet.X + 10, aBullet.Y)) {
+                                            newBullet = aBullet;
+                                            newBullet.X += 10;
+                                            newBullet.time += 1;
+                                            bullets.push(newBullet);
+                                        }
+                                    }
+                                    // Obstacle Found
+                                    else {
+                                        //board[aBullet.X][aBullet.Y] = 0;
+                                        tanks[aBullet.tankid].alive = false;
+                                    }
+                                }
+                                // Obstacle Found
+                                else if(board[aBullet.X - 10][aBullet.Y] != aBullet.tankid){
+                                    //board[aBullet.X - 10][aBullet.Y] = 0;
+                                    tanks[aBullet.tankid].alive = false;
+                                }
+                            }
+                        }
+                        else if (aBullet.angle == 90) {
+                            if (isValid(aBullet.X, aBullet.Y - 10)) {
+                                if (board[aBullet.X][aBullet.Y - 10] == 0) {
+                                    if (board[aBullet.X][aBullet.Y] == 0) {
+                                        // No Obstacle
+                                        if (isValid(aBullet.X, aBullet.Y + 20)) {
+                                            newBullet = aBullet;
+                                            newBullet.Y += 20;
+                                            newBullet.time += 1;
+                                            bullets.push(newBullet);
+                                        }
+                                        else if (isValid(aBullet.X, aBullet.Y + 10)) {
+                                            newBullet = aBullet;
+                                            newBullet.Y += 10;
+                                            newBullet.time += 1;
+                                            bullets.push(newBullet);
+                                        }
+                                    }
+                                    // Obstacle Found
+                                    else {
+                                        //board[aBullet.X][aBullet.Y] = 0;
+                                        tanks[aBullet.tankid].alive = false;
+                                    }
+                                }
+                                // Obstacle Found
+                                else if(board[aBullet.X][aBullet.Y - 10] != aBullet.tankid){
+                                    //board[aBullet.X][aBullet.Y - 10] = 0;
+                                    tanks[aBullet.tankid].alive = false;
+                                }
+                            }
+                        }
+                        else if (aBullet.angle == 180) {
+                            if (isValid(aBullet.X + 10, aBullet.Y)) {
+                                if (board[aBullet.X + 10][aBullet.Y] == 0) {
+                                    if (board[aBullet.X][aBullet.Y] == 0) {
+                                        // No Obstacle
+                                        if (isValid(aBullet.X - 20, aBullet.Y)) {
+                                            newBullet = aBullet;
+                                            newBullet.X -= 20;
+                                            newBullet.time += 1;
+                                            bullets.push(newBullet);
+                                        }
+                                        else if (isValid(aBullet.X - 10, aBullet.Y)) {
+                                            newBullet = aBullet;
+                                            newBullet.X -= 10;
+                                            newBullet.time += 1;
+                                            bullets.push(newBullet);
+                                        }
+                                    }
+                                    // Obstacle Found
+                                    else {
+                                        //board[aBullet.X][aBullet.Y] = 0;
+                                        tanks[aBullet.tankid].alive = false;
+                                    }
+                                }
+                                // Obstacle Found
+                                else if(board[aBullet.X + 10][aBullet.Y] != aBullet.tankid){
+                                    //board[aBullet.X + 10][aBullet.Y] = 0;
+                                    tanks[aBullet.tankid].alive = false;
+                                }
+                            }
+                        }
+                        else {
+                            if (isValid(aBullet.X, aBullet.Y + 10)) {
+                                if (board[aBullet.X][aBullet.Y + 10] == 0) {
+                                    if (board[aBullet.X][aBullet.Y] == 0) {
+                                        // No Obstacle
+                                        if (isValid(aBullet.X, aBullet.Y - 20)) {
+                                            newBullet = aBullet;
+                                            newBullet.Y -= 20;
+                                            newBullet.time += 1;
+                                            bullets.push(newBullet);
+                                        }
+                                        else if (isValid(aBullet.X, aBullet.Y - 10)) {
+                                            newBullet = aBullet;
+                                            newBullet.Y -= 10;
+                                            newBullet.time += 1;
+                                            bullets.push(newBullet);
+                                        }
+                                    }
+                                    // Obstacle Found
+                                    else {
+                                        //board[aBullet.X][aBullet.Y] = 0;
+                                        tanks[aBullet.tankid].alive = false;
+                                    }
+                                }
+                                // Obstacle Found
+                                else if(board[aBullet.X][aBullet.Y + 10] != aBullet.tankid){
+                                    //board[aBullet.X][aBullet.Y + 10] = 0;
+                                    tanks[aBullet.tankid].alive = false;
+                                }
+                            }
+                        }
+                        
+                    }
+                    else flag = false;
+                }
+
+                // Obstacle Remove from board
+                for (tn = 1; tn <= n; ++tn) {
+                    if (tanks[tn].alive == false) {
+                        board[tanks[tn].X][tanks[tn].Y] = 0;
+                    }
+                }
+
+
+                // Process Running Tanks
+                for (tn = 1; tn <= n; ++tn) {
+                    if (tanks[tn].alive && tanks[tn].moving) {
+                        if (tanks[tn].angle == 0) {
+                            if (isValid(tanks[tn].X + 10, tanks[tn].Y)) {
+                                board[tanks[tn].X][tanks[tn].Y] = 0;
+                                tanks[tn].X += 10;
+                                board[tanks[tn].X][tanks[tn].Y] = tn;
+                            }
+                        }
+                        else if (tanks[tn].angle == 90) {
+                            if (isValid(tanks[tn].X, tanks[tn].Y + 10)) {
+                                board[tanks[tn].X][tanks[tn].Y] = 0;
+                                tanks[tn].Y += 10; 
+                                board[tanks[tn].X][tanks[tn].Y] = tn;
+                            }
+                        }
+                        else if (tanks[tn].angle == 180) {
+                            if (isValid(tanks[tn].X, tanks[tn].Y - 10)) {
+                                board[tanks[tn].X][tanks[tn].Y] = 0;
+                                tanks[tn].Y -= 10; 
+                                board[tanks[tn].X][tanks[tn].Y] = tn;
+                            }
+                        }
+                        else {
+                            if (isValid(tanks[tn].X - 10, tanks[tn].Y)) {
+                                board[tanks[tn].X][tanks[tn].Y] = 0;
+                                tanks[tn].X -= 10; 
+                                board[tanks[tn].X][tanks[tn].Y] = tn;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        // Now Search for Ans
+        int aliveTanks = 0, ans;
+        for (tn = 1; tn <= n; ++tn) {
+            if (tanks[tn].alive == true) {
+                ++aliveTanks;
+                ans = tn;
+            }
+        }
+
+        if (aliveTanks == 0 || aliveTanks > 1) {
+            cout << "NO WINNER!" << endl;
+        }
+        else {
+            map < string, int >::iterator it;
+            for (it = tankid.begin(); it != tankid.end(); ++it) {
+                if (it->second == ans) {
+                    cout << it->first << endl;
+                    break;
                 }
             }
         }
