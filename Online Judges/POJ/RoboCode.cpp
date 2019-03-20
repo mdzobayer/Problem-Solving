@@ -13,26 +13,11 @@ struct tank {
     // 3 = Stop
     // 4 = Turn
 
-struct action {
-    int actionTime, actionType, orderBy, args;
-
-    bool operator < (const action & t) {
-        if (this->actionTime > t.actionTime) return false;
-        else if (this->actionTime < t.actionTime) return true;
-        else {
-            if (t.actionType == 1 && this->actionTime > 1) {
-                return false;
-            }
-            return true;
-        }
-    }
-
-    bool operator = (const action &t) {
-        this->actionTime = t.actionTime;
-        this->actionType = t.actionType;
-        this->orderBy = t.orderBy;
-        this->args = t.args;
-    }
+struct Shoot {
+    int time, direction, x, y;
+};
+struct Turn {
+    int time, angle, x, y, tankid;
 };
 
 map < string , int > tankid;
