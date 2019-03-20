@@ -17,13 +17,19 @@ struct tank {
 struct Bullet {
     int time, X, Y, angle, tankid;
 
-    bool operator < (const Bullet & b) {
-        if(this->time <= b.time) {
-            return true;
-        }
-        return false;
-    }
+//    bool operator <= (const Bullet & b) {
+//        if(this->time <= b.time) {
+//            return true;
+//        }
+//        return false;
+//    }
 };
+//bool operator < (const Bullet & a, const Bullet & b) {
+//    if(a.time <= b.time) {
+//            return true;
+//        }
+//        return false;
+//}
 
 struct Movement {
     int time, tankID, actionType, angle;
@@ -51,7 +57,7 @@ int main() {
     Movement aMovement;
 
     while(cin >> n >> m) {
-        
+
         if (n == 0 && m == 0) break;
         memset(board, 0, sizeof(board));
 
@@ -60,7 +66,7 @@ int main() {
         // Clear previous tank unique id
         tankid.clear();
         currentTime = 0;
-        
+
         // Take tank information
         for (i = 1; i <= n; ++i) {
             cin >> name >> tanks[i].X >> tanks[i].Y >> tanks[i].angle;
@@ -70,8 +76,8 @@ int main() {
             board[tanks[i].X][tanks[i].Y] = i;
         }
         // Bullet Simulator
-        //queue < Bullet > bullets;
-        priority_queue < Bullet > bullets;
+        queue < Bullet > bullets;
+        //priority_queue < Bullet > bullets;
 
         // Take commands
         for (i = 1; i <= m; ++i) {
@@ -94,8 +100,8 @@ int main() {
             for (currentTime; currentTime <= time; ++currentTime) {
                 // Processing Bullet
                 bool flag = true;
-                while(flag) {
-                    aBullet = bullets.top();
+                while(flag && !bullets.empty()) {
+                    aBullet = bullets.front();
                     if (aBullet.time <= currentTime) {
                         bullets.pop();
 
@@ -223,7 +229,7 @@ int main() {
                                 }
                             }
                         }
-                        
+
                     }
                     else flag = false;
                 }
@@ -249,21 +255,21 @@ int main() {
                         else if (tanks[tn].angle == 90) {
                             if (isValid(tanks[tn].X, tanks[tn].Y + 10)) {
                                 board[tanks[tn].X][tanks[tn].Y] = 0;
-                                tanks[tn].Y += 10; 
+                                tanks[tn].Y += 10;
                                 board[tanks[tn].X][tanks[tn].Y] = tn;
                             }
                         }
                         else if (tanks[tn].angle == 180) {
                             if (isValid(tanks[tn].X, tanks[tn].Y - 10)) {
                                 board[tanks[tn].X][tanks[tn].Y] = 0;
-                                tanks[tn].Y -= 10; 
+                                tanks[tn].Y -= 10;
                                 board[tanks[tn].X][tanks[tn].Y] = tn;
                             }
                         }
                         else {
                             if (isValid(tanks[tn].X - 10, tanks[tn].Y)) {
                                 board[tanks[tn].X][tanks[tn].Y] = 0;
-                                tanks[tn].X -= 10; 
+                                tanks[tn].X -= 10;
                                 board[tanks[tn].X][tanks[tn].Y] = tn;
                             }
                         }
@@ -272,7 +278,7 @@ int main() {
             }
 
             if (tanks[currentTankID].alive == false) continue;
-        
+
             while(allCommands >> singleCommand) {
                 if(singleCommand == "TURN") {
                     allCommands >> turnAngle;
@@ -287,11 +293,11 @@ int main() {
             }
         }
         {
-            for (currentTime; currentTime <= time; ++currentTime) {
+            for (currentTime; !bullets.empty(); ++currentTime) {
                 // Processing Bullet
                 bool flag = true;
-                while(flag) {
-                    aBullet = bullets.top();
+                while(flag && !bullets.empty()) {
+                    aBullet = bullets.front();
                     if (aBullet.time <= currentTime) {
                         bullets.pop();
 
@@ -419,7 +425,7 @@ int main() {
                                 }
                             }
                         }
-                        
+
                     }
                     else flag = false;
                 }
@@ -445,21 +451,21 @@ int main() {
                         else if (tanks[tn].angle == 90) {
                             if (isValid(tanks[tn].X, tanks[tn].Y + 10)) {
                                 board[tanks[tn].X][tanks[tn].Y] = 0;
-                                tanks[tn].Y += 10; 
+                                tanks[tn].Y += 10;
                                 board[tanks[tn].X][tanks[tn].Y] = tn;
                             }
                         }
                         else if (tanks[tn].angle == 180) {
                             if (isValid(tanks[tn].X, tanks[tn].Y - 10)) {
                                 board[tanks[tn].X][tanks[tn].Y] = 0;
-                                tanks[tn].Y -= 10; 
+                                tanks[tn].Y -= 10;
                                 board[tanks[tn].X][tanks[tn].Y] = tn;
                             }
                         }
                         else {
                             if (isValid(tanks[tn].X - 10, tanks[tn].Y)) {
                                 board[tanks[tn].X][tanks[tn].Y] = 0;
-                                tanks[tn].X -= 10; 
+                                tanks[tn].X -= 10;
                                 board[tanks[tn].X][tanks[tn].Y] = tn;
                             }
                         }

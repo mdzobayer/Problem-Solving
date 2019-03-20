@@ -78,7 +78,7 @@ int main() {
 
             total += ice[i].ni;
 
-            graph[ice[i].inpost] [ice[i].outpost] = ice[i].mi;
+            ajlist[ice[i].inpost] [ice[i].outpost] = ice[i].mi;
             graph[source][ice[i].inpost] = ice[i].ni;
         }
 
