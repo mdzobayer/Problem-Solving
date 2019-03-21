@@ -7,7 +7,7 @@ using namespace std;
 struct icePiece {
     int x, y, ni, mi, inpost, outpost;
 };
-
+vector < int > ajlist [SIZE];
 int n, source, terminal, rGraph[SIZE][SIZE], graph[SIZE][SIZE], maxNode;
 double d;
 icePiece ice[100+5];
@@ -78,7 +78,7 @@ int main() {
 
             total += ice[i].ni;
 
-            graph[ice[i].inpost] [ice[i].outpost] = ice[i].mi;
+            ajlist[ice[i].inpost] [ice[i].outpost] = ice[i].mi;
             graph[source][ice[i].inpost] = ice[i].ni;
         }
 
