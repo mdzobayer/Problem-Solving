@@ -94,7 +94,8 @@ B
 #include <vector>
 #include <cstring>
 #include <sstream>
-#define SIZE 120+5
+#define SIZE 100
+#define MAXTIME 400
 
 using namespace std;
 
@@ -110,7 +111,7 @@ public:
 
 class Tank {
 public:
-    int X, Y, angle = 0;
+    int X, Y, angle;
     bool alive, moving;
     string tankName;
 };
@@ -118,11 +119,10 @@ public:
 class Bullet {
 public:
     int angle, tankID;
-    point attack[2];
+    point attack;
 
     void operator = (const Bullet &b) {
-        this->attack[0] = b.attack[0];
-        this->attack[1] = b.attack[1];
+        this->attack = b.attack;
         this->angle = b.angle;
         this->tankID = b.tankID;
     }
@@ -130,7 +130,7 @@ public:
 
 class Action {
 public:
-    int tankID, actionType, angle = 0;
+    int tankID, actionType, angle;
 
     // Action Types
     // 1 = Shoot
@@ -146,34 +146,34 @@ public:
 };
 
 map < string , int > tankid;
-vector < Action > actions[60];
+vector < Action > actions[MAXTIME];
 Tank tanks[15];
 int board[SIZE][SIZE];
 
 
 bool isValid(int x, int y) {
-    if (x < 0 || y < 0 || x > 120 || y > 120) return false;
+    if (x < 0 || y < 0 || x > 72 || y > 72) return false;
     return true;
 };
-bool isValid(const point &p) {
+bool isValid( point p) {
     return isValid(p.X,p.Y);
 };
 
-bool isTankThere(const point &p) {
+bool isTankThere( point p) {
     if (board[p.X][p.Y] == 0) return false;
     return true;
 };
 
-bool isShootedTank(const Bullet &b) {
-    if (board[b.attack[0].X][b.attack[0].Y] == b.tankID) return true;
+bool isShootedTank( Bullet b) {
+    if (board[b.attack.X][b.attack.Y] == b.tankID) return true;
     return false;
 }
 
-int boardTankID(const point & p) {
+int boardTankID( point p) {
     return board[p.X][p.Y];
 };
 
-bool isMoveable(const int & X, const int & Y) {
+bool isMoveable( int  X,  int  Y) {
     if (isValid(X, Y) == false) return false;
 
     if (board[X][Y] == 0) return true;
@@ -200,7 +200,7 @@ int main() {
 
         // Clear previous tank unique id
         tankid.clear();
-        for (i = 0; i < 60; ++i) {
+        for (i = 0; i < MAXTIME; ++i) {
             actions[i].clear();
         }
 
@@ -209,11 +209,15 @@ int main() {
             cin >> name >> tanks[i].X >> tanks[i].Y >> tanks[i].angle;
             tankid[name] = i;
 
+            tanks[i].X /= 10;
+            tanks[i].Y /= 10;
+
+            tanks[i].X *= 6;
+            tanks[i].Y *= 6;
             tanks[i].tankName = name;
             tanks[i].alive = true;
             tanks[i].moving = false;
             board[tanks[i].X][tanks[i].Y] = i;
-            //cout << "TankID : " << i << " " << tanks[i].tankName << " " << tanks[i].X << " " << tanks[i].Y << " " << tanks[i].angle << endl;
         }
         cin.ignore();
 
@@ -236,12 +240,14 @@ int main() {
             currentTankID = tankid[name];   // Getting TankID
 
             anAction.tankID = currentTankID;
+            currentTime *= 6;
 
     // Action Types
     // 1 = Shoot
     // 2 = Move
     // 3 = Stop
     // 4 = Turn
+            //cout << "Before Extract: " << order << endl;
 
             while(allCommands >> singleCommand) {
 
@@ -255,6 +261,7 @@ int main() {
                 else if(singleCommand == "STOP") {
                     anAction.actionType = 3;
                     anAction.angle = 0;
+                    //cout << "Before Push: " << currentTime << endl;
                     actions[currentTime].push_back(anAction);
                 }
                 else if(singleCommand == "MOVE") {
@@ -268,8 +275,9 @@ int main() {
                     actions[currentTime].push_back(anAction);
                 }
                 anAction = actions[currentTime].back();
-                //cout << currentTime << " " << anAction.tankID << " " <<  anAction.actionType << " " << anAction.angle << endl;
+                //cout << "Commands: " << currentTime << " " << anAction.tankID << " " <<  anAction.actionType << " " << anAction.angle << endl;
             }
+
         }
 
         // Simulation Part
@@ -279,47 +287,48 @@ int main() {
         bullets1.clear();
         bullets2.clear();
         //
-
+        //cout << "CurrentTime: " << currentTime << endl;
         // Simulation Time Start
-        for (currentTime = 0; currentTime <= 60; ++currentTime) {
+        for (currentTime = 0; currentTime < MAXTIME; ++currentTime) {
 
 
             // Now Simulate moving Tanks (Checked)
+            //if (currentTime % 2 == 0)
             for (int tn = 1; tn <= n; ++tn) {
                 if (tanks[tn].moving == true && tanks[tn].alive == true) {
 
                     //cout << "TankID : " << tn << " Angle : " << tanks[tn].angle << endl;
                     if (tanks[tn].angle == 0) {
                         //cout << "CurrentTime: " << currentTime << " TankID: " << tn << endl;
-                        if (isMoveable(tanks[tn].X + 10, tanks[tn].Y)) {
+                        if (isMoveable(tanks[tn].X + 1, tanks[tn].Y)) {
                             board[tanks[tn].X][tanks[tn].Y] = 0;
 
-                            tanks[tn].X += 10;
+                            tanks[tn].X += 1;
                             board[tanks[tn].X][tanks[tn].Y] = tn;
                         }
                     }
                     else if (tanks[tn].angle == 90) {
                         //cout << "MovementTime: " << currentTime << " TankID: " << tn << endl;
-                        if (isMoveable(tanks[tn].X, tanks[tn].Y + 10)) {
+                        if (isMoveable(tanks[tn].X, tanks[tn].Y + 1)) {
                             board[tanks[tn].X][tanks[tn].Y] = 0;
 
-                            tanks[tn].Y += 10;
+                            tanks[tn].Y += 1;
                             board[tanks[tn].X][tanks[tn].Y] = tn;
                         }
                     }
                     else if (tanks[tn].angle == 180) {
-                        if (isMoveable(tanks[tn].X - 10, tanks[tn].Y)) {
+                        if (isMoveable(tanks[tn].X - 1, tanks[tn].Y)) {
                             board[tanks[tn].X][tanks[tn].Y] = 0;
 
-                            tanks[tn].X -= 10;
+                            tanks[tn].X -= 1;
                             board[tanks[tn].X][tanks[tn].Y] = tn;
                         }
                     }
                     else if (tanks[tn].angle == 270) {
-                        if (isMoveable(tanks[tn].X, tanks[tn].Y - 10)) {
+                        if (isMoveable(tanks[tn].X, tanks[tn].Y - 1)) {
                             board[tanks[tn].X][tanks[tn].Y] = 0;
 
-                            tanks[tn].Y -= 10;
+                            tanks[tn].Y -= 1;
                             board[tanks[tn].X][tanks[tn].Y] = tn;
                         }
                     }
@@ -332,45 +341,32 @@ int main() {
             for (int b1 = 0; b1 < bullets1.size(); ++b1) {
                 //cout << "BTime: " << currentTime << " " << bullets1[b1].attack[0].X << " " << bullets1[b1].attack[0].Y << " Angle : " <<  bullets1[b1].angle << endl;
                 //cout << "BTime: " << currentTime << " " << bullets1[b1].attack[1].X << " " << bullets1[b1].attack[1].Y << " Angle : " <<  bullets1[b1].angle << endl;
-                if (isValid(bullets1[b1].attack[0])) {
-                    if (isTankThere(bullets1[b1].attack[0]) == true && isShootedTank(bullets1[b1]) == false) {
+                if (isValid(bullets1[b1].attack)) {
+                    if (isTankThere(bullets1[b1].attack) == true && isShootedTank(bullets1[b1]) == false) {
                         // Found a tank
                         //cout << "First attack Position" << endl;
                         //cout << bullets1[b1].attack[0].X << " " << bullets1[b1].attack[0].Y << endl;
-                        attackedTankID = boardTankID(bullets1[b1].attack[0]);
+                        attackedTankID = boardTankID(bullets1[b1].attack);
                         //cout << "Time : " << currentTime << " Attacked Tank : " << attackedTankID << endl;
                         tanks[attackedTankID].alive = false;
                     }
-                    else if (isValid(bullets1[b1].attack[1])) {
-                        if (isTankThere(bullets1[b1].attack[1]) == true) {
-                            // Found a tank
-                            //cout << "Second attack Position" << endl;
-                            attackedTankID = boardTankID(bullets1[b1].attack[1]);
-                            tanks[attackedTankID].alive = false;
+                    else {
+                            // No tank on position
+                        aBullet = bullets1[b1];
+                        if (bullets1[b1].angle == 0) {
+                            aBullet.attack.X += 2;
                         }
-                        else {
-                            // No tank on First and Second position
-                            aBullet = bullets1[b1];
-                            if (bullets1[b1].angle == 0) {
-                                aBullet.attack[0].X = bullets1[b1].attack[0].X + 20;
-                                aBullet.attack[1].X = bullets1[b1].attack[1].X + 20;
-                            }
-                            else if (bullets1[b1].angle == 90) {
-                                aBullet.attack[0].Y = bullets1[b1].attack[0].Y + 20;
-                                aBullet.attack[1].Y = bullets1[b1].attack[1].Y + 20;
-                                //cout << "Bullet: " << aBullet.attack[0].X << " " << aBullet.attack[0].Y << endl;
-                                //cout << "Bullet: " << aBullet.attack[1].X << " " << aBullet.attack[1].Y << endl;
-                            }
-                            else if (bullets1[b1].angle == 180) {
-                                aBullet.attack[0].X = bullets1[b1].attack[0].X - 20;
-                                aBullet.attack[1].X = bullets1[b1].attack[1].X - 20;
-                            }
-                            else if (bullets1[b1].angle == 270) {
-                                aBullet.attack[0].Y = bullets1[b1].attack[0].Y - 20;
-                                aBullet.attack[1].Y = bullets1[b1].attack[1].Y - 20;
-                            }
-                            bullets2.push_back(aBullet);
+                        else if (bullets1[b1].angle == 90) {
+                                aBullet.attack.Y += 2;
                         }
+                        else if (bullets1[b1].angle == 180) {
+                                aBullet.attack.X -= 2;
+                        }
+                        else if (bullets1[b1].angle == 270) {
+                                aBullet.attack.Y -= 2;
+                        }
+                        bullets2.push_back(aBullet);
+
                     }
                 }
             }
@@ -400,37 +396,21 @@ int main() {
                     newBullet.tankID = anAction.tankID;
 
                     if (tanks[anAction.tankID].angle == 0) {    // (Checked)
-                        newBullet.attack[0].X = tanks[anAction.tankID].X + 10;
-                        newBullet.attack[0].Y = tanks[anAction.tankID].Y;
-
-                        newBullet.attack[1].X = tanks[anAction.tankID].X + 20;
-                        newBullet.attack[1].Y = tanks[anAction.tankID].Y;
+                        newBullet.attack.X = tanks[anAction.tankID].X + 2;
+                        newBullet.attack.Y = tanks[anAction.tankID].Y;
                     }
                     else if (tanks[anAction.tankID].angle == 90) {  // (Checked)
-                        newBullet.attack[0].X = tanks[anAction.tankID].X;
-                        newBullet.attack[0].Y = tanks[anAction.tankID].Y + 10;
-
-                        newBullet.attack[1].X = tanks[anAction.tankID].X;
-                        newBullet.attack[1].Y = tanks[anAction.tankID].Y + 20;
-
-                        //cout << "Cmd Bullet: " << newBullet.attack[0].X << " " << newBullet.attack[0].Y << endl;
-                        //cout << "Cmd Bullet: " << newBullet.attack[1].X << " " << newBullet.attack[1].Y << endl;
+                        newBullet.attack.X = tanks[anAction.tankID].X;
+                        newBullet.attack.Y = tanks[anAction.tankID].Y + 2;
                     }
                     else if (tanks[anAction.tankID].angle == 180) { // (Checked)
-                        newBullet.attack[0].X = tanks[anAction.tankID].X - 10;
-                        newBullet.attack[0].Y = tanks[anAction.tankID].Y;
-
-                        newBullet.attack[1].X = tanks[anAction.tankID].X - 20;
-                        newBullet.attack[1].Y = tanks[anAction.tankID].Y;
+                        newBullet.attack.X = tanks[anAction.tankID].X - 2;
+                        newBullet.attack.Y = tanks[anAction.tankID].Y;
                     }
                     else {  // (Checked)
-                        newBullet.attack[0].X = tanks[anAction.tankID].X;
-                        newBullet.attack[0].Y = tanks[anAction.tankID].Y - 10;
-
-                        newBullet.attack[1].X = tanks[anAction.tankID].X;
-                        newBullet.attack[1].Y = tanks[anAction.tankID].Y - 20;
+                        newBullet.attack.X = tanks[anAction.tankID].X;
+                        newBullet.attack.Y = tanks[anAction.tankID].Y - 2;
                     }
-
                     bullets1.push_back(newBullet);
                 }
                 else if (anAction.actionType == 2) {
