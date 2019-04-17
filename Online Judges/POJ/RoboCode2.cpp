@@ -218,7 +218,6 @@ int main() {
             tanks[i].alive = true;
             tanks[i].moving = false;
             board[tanks[i].X][tanks[i].Y] = i;
-
         }
         cin.ignore();
 

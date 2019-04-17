@@ -17,22 +17,22 @@ void BreasenhamCircle(int Cx, int Cy, int r)
     while(x < y) {
         //DrawCircle(Cx, Cy, x, y);
         putpixel(Cx + x,Cy + y,GREEN);
-        printf("%d\t%d\t%d\n", d,Cx + x,Cy + y);
+        printf("%d,\t%d,\t%d,\n", d,Cx + x,Cy + y);
         putpixel(Cx + x,Cy - y,GREEN);
-        printf("%d\t%d\t%d\n", d,Cx + x,Cy - y);
+        printf("%d,\t%d,\t%d,\n", d,Cx + x,Cy - y);
         putpixel(Cx - x,Cy + y,GREEN);
-        printf("%d\t%d\t%d\n", d,Cx - x,Cy + y);
+        printf("%d,\t%d,\t%d,\n", d,Cx - x,Cy + y);
         putpixel(Cx - x,Cy - y,GREEN);
-        printf("%d\t%d\t%d\n", d,Cx - x,Cy - y);
+        printf("%d,\t%d,\t%d,\n", d,Cx - x,Cy - y);
 
         putpixel(Cx + y,Cy + x,GREEN);
-        printf("%d\t%d\t%d\n", d,Cx + y,Cy + x);
+        printf("%d,\t%d,\t%d,\n", d,Cx + y,Cy + x);
         putpixel(Cx + y,Cy - x,GREEN);
-        printf("%d\t%d\t%d\n", d,Cx + y,Cy - x);
+        printf("%d,\t%d,\t%d,\n", d,Cx + y,Cy - x);
         putpixel(Cx - y,Cy + x,GREEN);
-        printf("%d\t%d\t%d\n", d,Cx - y,Cy + x);
+        printf("%d,\t%d,\t%d,\n", d,Cx - y,Cy + x);
         putpixel(Cx - y,Cy - x,GREEN);
-        printf("%d\t%d\t%d\n", d,Cx - y,Cy - x);
+        printf("%d,\t%d,\t%d,\n", d,Cx - y,Cy - x);
 
         ++x;
 
@@ -45,22 +45,22 @@ void BreasenhamCircle(int Cx, int Cy, int r)
         }
         //DrawCircle(Cx, Cy, x, y);
         putpixel(Cx + x,Cy + y,GREEN);
-        printf("%d\t%d\t%d\n", d,Cx + x,Cy + y);
+        printf("%d,\t%d,\t%d,\n", d,Cx + x,Cy + y);
         putpixel(Cx + x,Cy - y,GREEN);
-        printf("%d\t%d\t%d\n", d,Cx + x,Cy - y);
+        printf("%d,\t%d,\t%d,\n", d,Cx + x,Cy - y);
         putpixel(Cx - x,Cy + y,GREEN);
-        printf("%d\t%d\t%d\n", d,Cx - x,Cy + y);
+        printf("%d,\t%d,\t%d,\n", d,Cx - x,Cy + y);
         putpixel(Cx - x,Cy - y,GREEN);
-        printf("%d\t%d\t%d\n", d,Cx - x,Cy - y);
+        printf("%d,\t%d,\t%d,\n", d,Cx - x,Cy - y);
 
         putpixel(Cx + y,Cy + x,GREEN);
-        printf("%d\t%d\t%d\n", d,Cx + y,Cy + x);
+        printf("%d,\t%d,\t%d,\n", d,Cx + y,Cy + x);
         putpixel(Cx + y,Cy - x,GREEN);
-        printf("%d\t%d\t%d\n", d,Cx + y,Cy - x);
+        printf("%d,\t%d,\t%d,\n", d,Cx + y,Cy - x);
         putpixel(Cx - y,Cy + x,GREEN);
-        printf("%d\t%d\t%d\n", d,Cx - y,Cy + x);
+        printf("%d,\t%d,\t%d,\n", d,Cx - y,Cy + x);
         putpixel(Cx - y,Cy - x,GREEN);
-        printf("%d\t%d\t%d\n", d,Cx - y,Cy - x);
+        printf("%d,\t%d,\t%d,\n", d,Cx - y,Cy - x);
 
         //++x;
     }
