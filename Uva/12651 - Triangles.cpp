@@ -24,9 +24,9 @@ int binarySearch(int key, int n) {
 
 int main() {
 
-    freopen("in.txt", "r", stdin);
+    //freopen("in.txt", "r", stdin);
 
-    int n, i, j, ans, togo, arch, arch2, arch3, thirdPoint;
+    int n, i, j, ans, togo, arch, arch2, arch3, thirdPoint, secondPoint;
 
     while(scanf("%d", &n) == 1) {
 
@@ -37,32 +37,33 @@ int main() {
             pre[i] = pre[i - 1] + x[i];
         }
         ans = 0;
+
+        if (pre[n] % 3 != 0) {
+            puts("0");
+            continue;
+        }
+
+        arch = pre[n] / 3;
+
         memset(taken, true, sizeof(taken));
 
         for (i = 1; i <= n; ++i) {
             if (taken[i]) {
-                togo = ( n / 3 ) + i;
-                for (j = i + 1; j <= togo && j <= n; ++j) {
-                    if (taken[j]) {
-                        arch = pre[j] - pre[i];
-                        arch2 = pre[j] + arch;
-                        if (arch2 > pre[n]) {
-                            arch2 -= pre[n];
-                        }
-                        arch3 = pre[i] - arch;
-                        if (arch3 < 0) {
-                            arch3 += pre[n];
-                        }
-
-                        if (arch3 == arch2) {
-                            thirdPoint = binarySearch(arch2, n);
-                            if (thirdPoint > 0) {
-                                taken[thirdPoint] = taken[j] = taken[i] = false;
-                                ++ans;
-                            }
-                        }
-                    }
+                arch2 = pre[i] + arch;
+                if (arch2 > pre[n]) {
+                    arch2 -= pre[n];
                 }
+                arch3 = pre[i] - arch;
+                if (arch3 < 0) {
+                    arch3 += pre[n];
+                }
+   
+                secondPoint = binarySearch(arch2, n);
+                thirdPoint = binarySearch(arch3, n);
+                if (thirdPoint > 0 && secondPoint > 0 && thirdPoint != secondPoint) {
+                    taken[thirdPoint] = taken[secondPoint] = taken[i] = false;
+                    ++ans;
+                }   
             }
         }
 
