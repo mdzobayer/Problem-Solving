@@ -19,7 +19,7 @@ int main()
 	setfillstyle(SOLID_FILL, CYAN);	// Making Solid color, otherwise white
 	floodfill(300, 100, CYAN);
 
-	//setting color to black
+	// Setting color to Black
 	setcolor(BLACK);
 	setfillstyle(SOLID_FILL, BLACK);
 
@@ -40,6 +40,9 @@ int main()
 	ellipse(300, 100, 205, 335, 20, 10);
 	ellipse(300, 100, 205, 335, 20, 11);
 	ellipse(300, 100, 205, 335, 20, 12);
+	ellipse(300, 100, 205, 335, 20, 13);
+	ellipse(300, 100, 205, 335, 20, 14);
+	ellipse(300, 100, 205, 335, 20, 15);
 
 
 	getch();
