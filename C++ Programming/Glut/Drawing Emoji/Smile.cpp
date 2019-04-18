@@ -13,8 +13,8 @@ int main()
 	// outtextxy(10, 10 + 10, "A smiley face in C++ graphics");
 	
 	
-	// Drawing Face with GREEN color 
-	setcolor(CYAN);					// Setting Color GREEN
+	// Drawing Face with CYAN color 
+	setcolor(CYAN);					// Setting Color CYAN
 	circle(300, 100, 40);				
 	setfillstyle(SOLID_FILL, CYAN);	// Making Solid color, otherwise white
 	floodfill(300, 100, CYAN);
@@ -28,11 +28,18 @@ int main()
 	fillellipse(290, 85, 2, 6);		// Left Eyes
 
 	// Drawing Mouth
+	ellipse(300, 100, 205, 335, 20, 1);
+	ellipse(300, 100, 205, 335, 20, 2);
+	ellipse(300, 100, 205, 335, 20, 3);
+	ellipse(300, 100, 205, 335, 20, 4);
+	ellipse(300, 100, 205, 335, 20, 5);
+	ellipse(300, 100, 205, 335, 20, 6);
 	ellipse(300, 100, 205, 335, 20, 7);
 	ellipse(300, 100, 205, 335, 20, 8);
 	ellipse(300, 100, 205, 335, 20, 9);
 	ellipse(300, 100, 205, 335, 20, 10);
 	ellipse(300, 100, 205, 335, 20, 11);
+	ellipse(300, 100, 205, 335, 20, 12);
 
 
 	getch();
