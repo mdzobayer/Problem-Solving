@@ -2,15 +2,15 @@
 
 using namespace std;
 #define SIZE 5000000+10
-#define ll long long int
+#define ull unsigned long long int
 
 bool prime[SIZE];
 //ll answers[SIZE];
-float answerD[SIZE];
+ull answerD[SIZE];
 
 void sieve() {
     int i, j, sz;
-
+    answerD[2] = 1;
     for (i = 4; i < SIZE; i += 2) {
         prime[i] = true;
         answerD[i] *= (1.0 - (1.0 / 2.0));
@@ -21,7 +21,7 @@ void sieve() {
             answerD[i] = i - 1;
             for (j = i * 2; j < SIZE; j += i) {
                 prime[j] = true;
-                answerD[j] *= (1.0 - (1.0 / (float) i));
+                answerD[j] *= (1.0 - (1.0 / (double) i));
             }
         }
     }
@@ -54,7 +54,7 @@ void generateAns() {
 
     answerD[0] = answerD[1] = 0;
 
-    int i;
+    ull i;
     for (i = 2; i < SIZE; ++i) {
         answerD[i] = i;
     }
@@ -73,13 +73,16 @@ void generateAns() {
 
 int main() {
 
+    //freopen("in.txt", "r", stdin);
+    //freopen("out.txt", "w", stdout);
+
     generateAns();
     //printf("Value Calculation done\n");
     int test, t, a, b;
     scanf("%d", &test);
     for (t = 1; t <= test; ++t) {
         scanf("%d %d", &a, &b);
-        printf("Case %d: %lld\n", t, (ll) (answerD[b] - answerD[a - 1]));
+        printf("Case %d: %llu\n", t, (ull) (answerD[b] - answerD[a - 1]));
     }
 
     return (0);
