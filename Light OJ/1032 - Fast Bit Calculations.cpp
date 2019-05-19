@@ -34,18 +34,15 @@ void toBinary() {
     while(x > 0) {
 
         res = (x & 1);
-        bits[i] = res;
+        bits[i++] = res;
 
-        if (res) {
-            pos = i;
-        }
         x >>= 1;
-        ++i;
+
     }
     //printf("Pos = %d\n", pos);
     memset(dp, -1, sizeof(dp));
     
-    printf("%lld\n", solve(pos, 0, 0, 0));
+    printf("%lld\n", solve(i - 1, 0, 0, 0));
 
 }
 
