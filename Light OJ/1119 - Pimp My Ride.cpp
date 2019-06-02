@@ -2,15 +2,21 @@
 
 using namespace std;
 #define SIZE 20
-
+#define ll long long int
 int test, t, n, cost[SIZE][SIZE], target;
 
-long long int bitmask[(1 << 14) + 5];
+ll bitmask[(1 << 14) + 5];
 
-int solve (int mask, int cst) {
-    if (mask == target) return cst;
+ll solve (int mask) {
 
-    int i, j, tmpCost, ans = INT_MAX;
+    if (mask == target){ 
+        //cout << "Target Filled" << endl;
+        return 0;
+    }
+
+    if (bitmask[mask] != -1) return bitmask[mask];
+
+    ll i, j, tmpCost, ans = LLONG_MAX;
 
     for (i = 0; i < n; ++i) {
         if ((mask & (1 << i)) == 0) {
@@ -22,11 +28,11 @@ int solve (int mask, int cst) {
                 }
             }
 
-            ans = min(ans, solve(mask | (1 << i), cst + tmpCost));
+            ans = min(ans, solve((mask | (1 << i))) + tmpCost);
         }
     }
 
-    return ans;
+    return bitmask[mask] = ans;
 }
 
 int main() {
@@ -48,7 +54,7 @@ int main() {
 
         memset(bitmask, -1, sizeof(bitmask));
 
-        printf("Case %d: %d\n", t, solve(0, 0));
+        printf("Case %d: %lld\n", t, solve(0));
 
     }
 
