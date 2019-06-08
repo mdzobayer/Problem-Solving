@@ -1,72 +1,41 @@
-#include <cstdio>
-#include <cstring>
+#include <bits/stdc++.h>
 
-#define lli long long int
+using namespace std;
+#define SIZE 100000+5
+#define ll long long int
 
-lli sums[100010], sum, n, m, test, t, i, x, k, count;
-int dp1[100015];
-int dp2[100015];
+int n, m, arr[SIZE];
+ll dp[SIZE];
 
-int countWays(lli l, lli r) {
-    /// If same situation before
-    if (dp1[l] == 0 && dp2[r] == 0) {
-        return 0;
-    }
+ll solve() {
 
-    if (l == r) {
-        printf("Combinations %lld %lld\n", l, r);
-        //printf("same index %lld\n", r);
-        if ((sums[r] - sums[l - 1]) % m == 0) {
-            ++count;
-            printf("sum is %lld\n", (sums[r] - sums[l - 1]));
-            return 0;
-        }
-        else {
-            return 0;
-        }
-    }
-    /*
-    if (sums[l] % m == 0){
-        //printf("YES\n");
-        ++count;
-    }
-    */
-    printf("Combinations %lld %lld\n", l, r);
-    if ((sums[r] - sums[l - 1]) % m == 0){
-        printf("sum is no %lld\n", (sums[r] - sums[l - 1]));
-        //printf(" NO\n");
-        ++count;
-    }
     int i;
-    for (i = l; i < r; ++i) {
-        countWays(l, i);
-        dp1[l] = 0;
-        dp2[i] = 0;
-        countWays(i + 1, r);
-        dp1[i + 1] = 0;
-        dp2[r] = 0;
+    arr[0] = 0;
+    for (i = 1; i <= n; ++i) {
+        scanf("%d", &arr[i]);
+        arr[i] = (arr[i] + arr[i - 1]) % m;
     }
 
-    return 0;
+    ll cnt = 0;
+    memset(dp, 0, sizeof(dp));
+
+    for (i = 1; i <= n; ++i) {
+        cnt += dp[arr[i]];
+        ++dp[arr[i]];
+        if (arr[i] == 0) ++cnt;
+    }
+
+    return cnt;
 }
 
 int main() {
 
-    scanf("%lld", &test);
+    int test, t;
+    scanf("%d", &test);
+
     for (t = 1; t <= test; ++t) {
-        sums[0] = 0;
-        memset(dp1, 1, sizeof(dp1));
-        memset(dp2, 1, sizeof(dp2));
-        scanf("%lld %lld", &n, &m);
-        for (i = 1; i <= n; ++i) {
-            scanf("%lld", &x);
-            sums[i] = sums[i - 1] + x;
-        }
-        count = 0;
-        countWays(1, n);
-        dp1[1] = 0;
-        dp2[n] = 0;
-        printf("Case %lld: %lld\n", t, count);
+        scanf("%d %d", &n, &m);
+        printf("Case %d: %lld\n", t, solve());
     }
 
     return (0);
