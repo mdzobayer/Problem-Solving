@@ -3,64 +3,32 @@
 #define TIME 200
 using namespace std;
 
-int n, h, maxTime, fishes[N], decreRate[N], movingCost[N], dp[N][TIME][TIME];
+int n, h, xTime, maxTime, fishes[N], decreRate[N], movingCost[N], dp[N][TIME][TIME];
 bool flag;
 
-int solve(int lakeNo, int totalTime, int spendTime) {
-    if (totalTime >= maxTime) return (0);
+int solve(int lakeNo, int remainTime) {
+    
+    if (remainTime <= 0 || lakeNo > n) return (0);
+    //printf("Lake no : %d RemainTime : %d\n", lakeNo, remainTime);
+    int spendTime, availableFish, found = 0, ans = 0;
 
-    if (dp[lakeNo][totalTime][spendTime] != -1) 
-        return dp[lakeNo][totalTime][spendTime];
+    for (spendTime = 0; (remainTime - spendTime) > 0; ++spendTime) {
 
-    int ans = 0;
-    int availableFish = fishes[lakeNo] - (decreRate[lakeNo] * spendTime);
-
-    if (availableFish < 0) availableFish = 0;
-    ans += solve(lakeNo, totalTime + 1, spendTime + 1) + availableFish;
-
-    int ans2;
-    if (lakeNo < n) {
-        ans2 =  max(ans, solve(lakeNo + 1, totalTime + movingCost[lakeNo] ,0));
-    }
-    else {
-        ans2 = ans;
-    }
-    //printf("Lake no %d maxFish %d\n", lakeNo, ans2);
-
-    return dp[lakeNo][totalTime][spendTime] = ans2;
-}
-
-void PrintPath(int lakeNo, int totalTime, int spendTime) {
-
-    int availableFish;
-
-    int moveTime = 0;
-    if (lakeNo < n)
-        moveTime = movingCost[lakeNo];
-
-    if (totalTime < maxTime && (spendTime + moveTime) < maxTime) {
-        
         availableFish = fishes[lakeNo] - (decreRate[lakeNo] * spendTime);
-        if (availableFish < 0) 
-            availableFish = 0;
-        printf("\nlake %d Check %d %d\n", lakeNo, dp[lakeNo][totalTime][spendTime], availableFish + dp[lakeNo][totalTime + 1][spendTime + 1]);
-        
-        if (availableFish + dp[lakeNo][totalTime + 1][spendTime + 1] == dp[lakeNo][totalTime][spendTime]) {
-            PrintPath(lakeNo, totalTime + 1, spendTime + 1);
+        xTime = remainTime - (spendTime + movingCost[lakeNo]);
+
+        if (availableFish < 0) availableFish = 0;
+
+        if (xTime > 0) {
+            ans = max(ans, solve(lakeNo + 1, xTime) + availableFish + found);
         }
         else {
-            if (flag)
-                printf(", %d", spendTime);
-            else printf("%d", spendTime);
-
-            flag = true;
-
-            if (lakeNo < n) {
-                PrintPath(lakeNo + 1, totalTime + movingCost[lakeNo], 0);
-            }
+            ans = max(ans, availableFish + found);
         }
+        found += availableFish;
     }
 
+    return ans;
 }
 
 
@@ -89,13 +57,11 @@ int main() {
         
         memset(dp, -1, sizeof(dp));
         flag = false;
-        ans = solve(1, 0, 0);
+        ans = solve(1, maxTime);
 
         printf("Case %d:\n", t);
-        PrintPath(1, 0, 0);
+        //PrintPath(1, 0, 0);
         printf("\nNumber of fish expected: %d\n", ans);
-
-
     }
 
     return (0);
