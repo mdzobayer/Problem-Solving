@@ -2,61 +2,67 @@
 
 using namespace std;
 
+struct State {
+    int value = 0;
+    string str = "";
+};
+
 string s1, s2;
-int length1, length2, dp[105][105];
+int length1, length2;
+State dp[105][105];
 
-int solve(int x, int y) {
-    if (x >= length1 || y >= length2) return (0);
+State solve(int x, int y) {
+    if (x >= length1 || y >= length2) {
+        State tmp;
+        return tmp;
+    }
 
-    if (dp[x][y] != -1) return dp[x][y];
+    if (dp[x][y].value != -1) return dp[x][y];
 
-    int ans = 0;
+    State ans;
 
     if (s1[x] == s2[y]) {
         // printf("%c %c\n", s1[x], s2[y]);
-        ans = max(ans, 1 + solve(x + 1, y + 1));
+        if (ans.value < 1 + solve(x + 1, y + 1).value) {
+            ans = solve(x + 1, y + 1);
+            ++ans.value;
+            ans.str = s1[x] + ans.str;
+        }
     }
     else {
-        ans = max(ans, solve(x, y + 1));
-        ans = max(ans, solve(x + 1, y));
+        if (ans.value < solve(x, y + 1).value) {
+            ans = solve(x, y + 1);
+        }
+        else if (ans.value == solve(x, y + 1).value) {
+            ans.str = min(ans.str, solve(x, y + 1).str);
+        }
+
+        if (ans.value < solve(x + 1, y).value) {
+            ans = solve(x + 1, y);
+        }
+        else if (ans.value == solve(x + 1, y).value) {
+            ans.str = min(ans.str, solve(x + 1, y).str);
+        }
     }
-    
-    ans = max(ans, solve(x + 1, y + 1));
+
+
+    if (ans.value < solve(x + 1, y + 1).value) {
+        ans = solve(x + 1, y);
+    }
+    else if (ans.value == solve(x + 1, y + 1).value) {
+        ans.str = min(ans.str, solve(x + 1, y).str);
+    }
 
     return dp[x][y] = ans;
 }
 
-vector < string > asendingOrder;
-
-void PrintPath(string str, int x, int y, int ans) {
-    //printf("Path str = %s x = %d y = %d ans = %d\n", str.c_str(), x, y, ans);
-    if (ans == 0) {
-        asendingOrder.push_back(str);
-        return;
-    }
-
-    if (x >= length1 || y >= length2) return ;
-
-    int atmp;
-    atmp = solve(x, y);
-
-    if (atmp == solve(x + 1, y + 1)) {
-        PrintPath(str, x + 1, y + 1, ans);
-    }
-    else if (s1[x] == s2[y]) {
-        PrintPath(str + s1[x], x + 1, y + 1, ans - 1);
-    }
-    else {
-        PrintPath(str, x, y + 1, ans);
-        PrintPath(str, x + 1, y, ans);
-    }
-}
 
 int main() {
 
     //freopen("in.txt", "r", stdin);
 
-    int test, t, ans;
+    int test, t, i, j;
+    State ans;
     cin >> test;
     cin.ignore();
     for (t = 1; t <= test; ++t) {
@@ -70,22 +76,21 @@ int main() {
 
         printf("Case %d: ", t);
 
-        memset(dp, -1, sizeof(dp));
+        for (i = 0; i < 105; ++i) {
+            for (j = 0; j < 105; ++j) {
+                dp[i][j].value = -1;
+                dp[i][j].str = "";
+            }
+        }
 
         ans = solve(0, 0);
-        if (ans == 0) {
+        if (ans.value == 0) {
             puts(":(");
         }
         else {
-            //printf("%d\n", ans);
-            asendingOrder.clear();
-            //cout << "Debug 1" << endl;
-            PrintPath("", 0, 0, ans);
-            //cout << "Debug 2" << endl;
-            sort(asendingOrder.begin(), asendingOrder.end());
-            printf("%s\n", asendingOrder[0].c_str());
+            printf("%s\n", solve(0, 0).str.c_str());
         }
-        
+
     }
 
     return (0);
