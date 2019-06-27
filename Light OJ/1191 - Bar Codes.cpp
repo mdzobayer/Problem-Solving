@@ -6,7 +6,7 @@ using namespace std;
 
 int n, k, m;
 
-ll dp[SIZE][SIZE];
+ll dp[SIZE][SIZE][SIZE];
 
 ll solve(int remainN, int remainK) {
     if (remainK < 0 || remainN < 0) {
@@ -16,8 +16,8 @@ ll solve(int remainN, int remainK) {
         return 1;
     }
 
-    if (dp[remainN][remainK] != -1) {
-        return dp[remainN][remainK];
+    if (dp[remainN][remainK][m] != -1) {
+        return dp[remainN][remainK][m];
     }
 
     ll i, ans = 0;
@@ -26,21 +26,20 @@ ll solve(int remainN, int remainK) {
         ans += solve(remainN - i, remainK - 1);
     }
 
-    return dp[remainN][remainK] = ans;
+    return dp[remainN][remainK][m] = ans;
 }
-
-
 
 int main() {
 
     //freopen("in.txt", "r", stdin);
     
     int test, t;
+
+    memset(dp, -1, sizeof(dp));
+
     scanf("%d", &test);
     for (t = 1; t <= test; ++t) {
         scanf("%d %d %d", &n, &k, &m);
-
-        memset(dp, -1, sizeof(dp));
 
         printf("Case %d: %lld\n", t, solve(n, k));
     }
