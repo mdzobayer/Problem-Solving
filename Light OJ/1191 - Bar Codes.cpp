@@ -2,11 +2,13 @@
 
 using namespace std;
 #define ll long long int
+#define SIZE 52
+
 int n, k, m;
 
-ll dp[55][55][3];
+ll dp[SIZE][SIZE];
 
-ll solve(int remainN, int remainK, bool flag) {
+ll solve(int remainN, int remainK) {
     if (remainK < 0 || remainN < 0) {
         return 0;
     }
@@ -14,18 +16,20 @@ ll solve(int remainN, int remainK, bool flag) {
         return 1;
     }
 
-    if (dp[remainN][remainK][flag] != -1) {
-        return dp[remainN][remainK][flag];
+    if (dp[remainN][remainK] != -1) {
+        return dp[remainN][remainK];
     }
 
     ll i, ans = 0;
 
     for (i = 1; i <= m; ++i) {
-        ans += solve(remainN - i, remainK - 1, !flag);
+        ans += solve(remainN - i, remainK - 1);
     }
 
-    return dp[remainN][remainK][flag] = ans;
+    return dp[remainN][remainK] = ans;
 }
+
+
 
 int main() {
 
@@ -38,7 +42,7 @@ int main() {
 
         memset(dp, -1, sizeof(dp));
 
-        printf("Case %d: %lld\n", t, solve(n, k, true));
+        printf("Case %d: %lld\n", t, solve(n, k));
     }
 
 
