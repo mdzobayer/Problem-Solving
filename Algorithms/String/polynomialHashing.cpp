@@ -6,6 +6,11 @@ long long int primeMultipier = 3, primeMod = 97;
 long long int p[SIZE], h[SIZE];
 string s;
 
+long long int filter (long long int x) {
+    if (x >= 0) return x;
+    return (primeMod + x);
+}
+
 int main() {
     
     s = "ABABCDEABCD";
@@ -27,21 +32,21 @@ int main() {
     int a, b;
     a = 3;
     b = 5;
-    cout << ((h[b] - h[a - 1] * p[b - a + 1])) % primeMod << endl;
+    cout << filter(((h[b] - h[a - 1] * p[b - a + 1])) % primeMod) << endl;
     a = 8;
     b = 10;
-    cout << ((h[b] - h[a - 1] * p[b - a + 1])) % primeMod << endl;
+    cout << filter(((h[b] - h[a - 1] * p[b - a + 1])) % primeMod) << endl;
 
 
     a = 0;
     b = 1;
-    cout << (h[b] - (4 * p[b - a + 1])) % primeMod << endl;
+    cout << filter(h[b]) << endl;
     a = 2;
     b = 3;
-    cout << ((h[b] - h[a - 1] * p[b - a + 1])) % primeMod << endl;
+    cout << filter(((h[b] - h[a - 1] * p[b - a + 1])) % primeMod) << endl;
     a = 7;
     b = 8;
-    cout << ((h[b] - h[a - 1] * p[b - a + 1])) % primeMod << endl;
+    cout << filter(((h[b] - h[a - 1] * p[b - a + 1])) % primeMod) << endl;
 
     return (0);
 }
