@@ -36,25 +36,24 @@ void solve(string s, int len) {
 
     head = new Node;
     head->ch = '#';
-    head->nxt = NULL;
+
+    tail = new Node;
+    tail->ch = '#';
+
+    head->nxt = tail;
+    tail->nxt = head;
     //printf("%c", head->ch);
 
-    tail = head;
-
     cursor = head;
-
-    flag = true;
 
     //cout << "Debug 1" << endl;
     //printf("%c", head->ch);
     for (i = 0; i < len; ++i) {
         if (s[i] == '[') {
             cursor = head;
-            flag = false;
         }
         else if (s[i] == ']') {
-            cursor = tail;
-            flag = true;
+            cursor = tail->nxt;
         }
         else {
             //cout << "Debug " << s[i] << endl;
@@ -80,7 +79,7 @@ void solve(string s, int len) {
 int main() {
 
     freopen("in.txt", "r", stdin);
-    freopen("out.txt", "w", stdout);
+    //freopen("out.txt", "w", stdout);
 
     string s;
     int len;
