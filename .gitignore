@@ -4,4 +4,6 @@
 *.pdf
 *.zip
 .vscode
+in.txt
+out.txt
 
