@@ -15,14 +15,14 @@ struct Node {
         weight = 0;
     }
 
-    bool operator < (const Node & n) {
-        if (this->weight <= n.weight) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
+    // bool operator < (const Node & n) {
+    //     if (this->weight <= n.weight) {
+    //         return true;
+    //     }
+    //     else {
+    //         return false;
+    //     }
+    // }
 
     void operator = ( const Node & n) {
         this->x = n.x;
@@ -32,9 +32,9 @@ struct Node {
 };
 
 bool operator < (const Node & x, const Node & n) {
-    if (x.weight <= n.weight) return true;
+    if (x.weight <= n.weight) return false;
     else {
-        return false;
+        return true;
     }
 }
 
@@ -54,10 +54,10 @@ bool isTarget(const Node & aNode) {
 }
 
 
-int dijkstra(Node start) {
+int dijkstra() {
 
     int i, j;
-    Node cNode, nNode;
+    Node cNode, nNode, start;
 
     priority_queue<Node> pq;
 
@@ -67,24 +67,33 @@ int dijkstra(Node start) {
         }
     }
 
-    start.weight = cost[0][0];
+    start.weight = 0;
+    start.x = 0;
+    start.y = 0;
     pq.push(start);
 
     while(!pq.empty()) {
         cNode = pq.top();
         pq.pop();
 
-        //printf("Poped %d\n", cNode.weight);
+        // printf("Poped %d\n", cNode.weight);
 
 
         if (reachCost[cNode.x][cNode.y] > (cNode.weight + cost[cNode.x][cNode.y])) {
             reachCost[cNode.x][cNode.y] = (cNode.weight + cost[cNode.x][cNode.y]);
 
             nNode.weight = reachCost[cNode.x][cNode.y];
+
             nNode.x = cNode.x + 1;
             nNode.y = cNode.y;
-           
+            if (isValid(nNode)) {
+                if (reachCost[nNode.x][nNode.y] > (nNode.weight + cost[nNode.x][nNode.y])) {
+                     pq.push(nNode);
+                }
+            }
 
+            nNode.x = cNode.x - 1;
+            nNode.y = cNode.y;
             if (isValid(nNode)) {
                 if (reachCost[nNode.x][nNode.y] > (nNode.weight + cost[nNode.x][nNode.y])) {
                      pq.push(nNode);
@@ -93,7 +102,14 @@ int dijkstra(Node start) {
 
             nNode.x = cNode.x;
             nNode.y = cNode.y + 1;
+            if (isValid(nNode)) {
+                if (reachCost[nNode.x][nNode.y] > (nNode.weight + cost[nNode.x][nNode.y])) {
+                     pq.push(nNode);
+                }
+            }
 
+            nNode.x = cNode.x;
+            nNode.y = cNode.y - 1;
             if (isValid(nNode)) {
                 if (reachCost[nNode.x][nNode.y] > (nNode.weight + cost[nNode.x][nNode.y])) {
                      pq.push(nNode);
@@ -101,8 +117,9 @@ int dijkstra(Node start) {
             }
 
         }
-
-
+        if (cNode.x == (N-1) && cNode.y == (M-1)) {
+            return reachCost[N-1][M-1];
+        }
     }
 
     return reachCost[N-1][M-1];
@@ -112,7 +129,8 @@ int dijkstra(Node start) {
 
 int main() {
 
-//    freopen("in.txt", "r", stdin);
+    // freopen("in.txt", "r", stdin);
+    // freopen("out.txt", "w", stdout);
 
     int test, t, i, j;
     scanf("%d", &test);
@@ -124,9 +142,8 @@ int main() {
                 scanf("%d", &cost[i][j]);
             }
         }
-        Node aNode;
 
-        printf("%d\n", dijkstra(aNode));
+        printf("%d\n", dijkstra());
 
     }
 
