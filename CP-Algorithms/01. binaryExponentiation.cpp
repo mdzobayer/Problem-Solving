@@ -1,10 +1,10 @@
 #include <bits/stdc++.h>
-#define LLD long long int
+#define ll long long int
 
 using namespace std;
 
-LLD binPowRecursive(LLD a, LLD n) {
-    LLD x;
+ll binPowRecursive(ll a, ll n) {
+    ll x;
     if (n == 0)
         return 1;
 
@@ -18,8 +18,8 @@ LLD binPowRecursive(LLD a, LLD n) {
     }
 }
 
-LLD binPowLoop(LLD a, LLD n) {
-    LLD result = 1;
+ll binPowLoop(ll a, ll n) {
+    ll result = 1;
 
     while (n > 0) {
 //        cout << "n = " << n << endl;
@@ -36,8 +36,8 @@ LLD binPowLoop(LLD a, LLD n) {
     return result;
 }
 
-LLD binPowLoopModule(LLD a, LLD n, LLD m) {
-    LLD result = 1;
+ll binPowLoopModule(ll a, ll n, ll m) {
+    ll result = 1;
     a = a % m;
     while(n > 0) {
         if (n % 2 == 1) {
@@ -51,11 +51,26 @@ LLD binPowLoopModule(LLD a, LLD n, LLD m) {
     return result;
 }
 
+ll modpow (ll x, ll n, ll m) {
+    if (n == 0) {
+        return 1 % m;
+    }
+
+    ll u = modpow(x , n / 2, m);
+
+    u = (u * u) % m;
+
+    if (n & 1)
+        u = (u * x) % m;
+
+    return u;
+}
 
 int main() {
 
     cout << binPowRecursive(3, 7) << endl;
     cout << binPowLoopModule(3, 7, 10) << endl;
+    cout << modpow(3, 7, 10) << endl;
 
     return (0);
 }
