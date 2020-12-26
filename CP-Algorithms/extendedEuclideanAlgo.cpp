@@ -17,17 +17,30 @@ ll gcdExtended(ll a, ll b, ll & x, ll & y) {
     x = y1;
     y = x1 - y1 * (a / b);
 
-    printf("x = %lld y = %lld (a/b) = %lld\n", x, y, (a/b));
-
     return d;
+}
+
+tuple<ll, ll, ll> gcdWithTuple(ll a, ll b) {
+    if (b == 0) {
+        return {1, 0, a};
+    }
+
+    ll x, y, g;
+
+    tie(x, y, g) = gcdWithTuple(b, a % b);
+
+    return {y, x - y * (a / b), g};
 }
 
 int main() {
 
-    ll a = 55, b = 80, x, y;
+    ll a = 55, b = 80, x, y, g;
 
-    printf("%lld\n", gcdExtended(a, b, x, y));
-    printf("%lld %lld", x, y);
+    g = gcdExtended(a, b, x, y);
+    printf("%lld %lld %lld\n", x, y, g);
+
+    tie(x, y, g) = gcdWithTuple(a, b);
+    printf("%lld %lld %lld\n", x, y, g);
 
     return (0);
 }
