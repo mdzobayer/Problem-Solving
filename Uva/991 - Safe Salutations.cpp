@@ -3,7 +3,7 @@
 
 using namespace std;
 
-ll dp[12];
+ll dp[] = {1, 1, 2, 5, 14, 42, 132, 429, 1430, 4862};
 
 ll catalan(ll n) {
     if (n < 1)
@@ -23,10 +23,10 @@ ll catalan(ll n) {
 
 int main() {
 
-    memset(dp, -1, sizeof(dp));
-    for (ll i = 0; i < 11; ++i) {
-        catalan(i);
-    }
+    // memset(dp, -1, sizeof(dp));
+    // for (ll i = 0; i < 11; ++i) {
+    //     catalan(i);
+    // }
 
     ll n;
     bool isFirst = true;
