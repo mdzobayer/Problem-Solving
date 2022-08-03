@@ -1,0 +1,12 @@
+
+  01. Fermat's little theorem
+  02. Effective computation of Fibonacci numbers
+  03. Applying a permutation k times
+  04. Fast application of a set of geometric operations to a set of points
+  05. Variation of binary exponentiation: multiplying two numbers modulo m
+  06. Iterative version of extended version of euclidean algorithm
+
+* 07. Linear Diophantine Equation
+
+
+
