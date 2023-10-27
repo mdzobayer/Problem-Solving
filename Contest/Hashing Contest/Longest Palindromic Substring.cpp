@@ -1,52 +1,55 @@
-#include <cstdio>
-#include <cstring>
-#include <cstdlib>
-#include <map>
-#include <iostream>
+#include <bits/stdc++.h>
 #define lli long long int
 
 using namespace std;
 
-lli max(lli x, lli y){
-    return x > y ? x : y;
-}
+lli lps(string str) {
+    cout << "str = " << str << endl;
+    int maxLps = 1, maxLpsStartIndex = 0;
+    int i, j, k, n = str.size();
+    bool dp[n][n];
 
-map<string, lli> dp;
-string s;
-char number[20];
+    memset(dp, false, sizeof(dp));
 
-
-lli lps(char * str, lli l, lli r) {
-    if (l == r) return 1;
-
-    if (str[l] == str[r] && l + 1 == r) {
-        return 2;
-    }
-    s = "";
-    sprintf(number,"%lld%lld", l, r);
-    s = number;
-
-    if (dp.find(s) != dp.end()) {
-        return dp[s];
+    // one length palindrome
+    for (i = 0; i < n; ++i) {
+        dp[i][i] = true;
     }
 
-    if (str[l] == str[r]) {
-        return dp[s] = 2 + lps(str, l + 1, r - 1);
+    // two length palindrome
+    for (i = 0; i < n - 1; ++i) {
+        if (str[i] == str[i + 1]) {
+            dp[i][i + 1] = true;
+            if (maxLps < 2) {
+                maxLps = 2;
+                maxLpsStartIndex = i;
+            }
+        }
+    }
+    
+    // greater then 2 palindrome
+    for (k = 3; k <= n; ++k) {
+        for (i = 0; i < n - k + 1; ++i) {
+            j = i + k - 1;
+
+            if (dp[i + 1][j - 1] && str[i] == str[j]) {
+                dp[i][j] = true;
+                if (k > maxLps) {
+                    maxLps = k;
+                    maxLpsStartIndex = i;
+                }
+            }
+        }
     }
 
-    return dp[s] = max(lps(str, l + 1, r), lps(str, l, r - 1));
+    cout << "sub palindrome : " << str.substr(maxLpsStartIndex, maxLps) << endl;
+    return maxLps;
 }
 
 int main() {
 
-    lli n;
-    char str[100000 + 5];
-    while(scanf("%lld", &n) == 1) {
-        dp.clear();
-        getchar();
-        scanf("%s", &str);
-        printf("%lld\n", lps(str, 0, n - 1));
-    }
+    string str = "forgeeksskeegfor";
+    cout << lps(str) << endl;
 
     return (0);
 }
