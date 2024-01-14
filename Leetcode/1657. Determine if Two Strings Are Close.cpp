@@ -1,49 +1,27 @@
-#include <bits/stdc++.h>
-
-using namespace std;
-
 class Solution {
 public:
     bool closeStrings(string word1, string word2) {
+        int i, len1 = word1.size(), len2 = word2.size();
 
-        int chars1[130], chars2[130];
-        memset(chars1, 0, sizeof(chars1));
-        memset(chars2, 0, sizeof(chars2));
+        if (len1 != len2) return false;
 
-        if (word1.size() != word2.size()) return false;
+        vector<int> word1Count(26, 0), word2Count(26, 0);
 
-        for (int i = 0; i < word1.size(); ++i) {
-            chars1[word1[i]] += 1;
-            chars2[word2[i]] += 1;
+        for (i = 0; i < len1; ++i) {
+            word1Count[word1[i] - 'a'] += 1;
+            word2Count[word2[i] - 'a'] += 1;
         }
 
-        vector<int> vt1, vt2;
-        for (int i = 'a'; i <= 'z'; ++i) {
-            if (chars1[i] == 0 && chars2[i] > 0) return false;
-            if (chars2[i] == 0 && chars1[i] > 0) return false;
-
-            if (chars1[i] > 0)
-                vt1.push_back(chars1[i]);
-
-            if (chars2[i] > 0)
-                vt2.push_back(chars2[i]);
+        for (i = 0; i < 26; ++i) {
+            if (word1Count[i] > 0 && word2Count[i] == 0) return false;
+            if (word2Count[i] > 0 && word1Count[i] == 0) return false;
         }
 
-        if(vt1.size() != vt2.size()) return false;
+        sort(word1Count.begin(), word1Count.end());
+        sort(word2Count.begin(), word2Count.end());
 
-        sort(vt1.begin(), vt1.end());
-        sort(vt2.begin(), vt2.end());
-
-        // map<char, int>:: iterator it1, it2;
-        // for (it1 = count1.begin(); it1 != count1.end(); ++it1) {
-        //     it2 = count2.find(it1->first);
-        //     if(it2 == count2.end()) return false;
-
-        //     if (it1->second != it2->second) return false;
-        // }
-
-        for (int i = 0; i < vt1.size(); ++i) {
-            if (vt1[i] != vt2[i]) return false;
+        for (i = 0; i < 26; ++i) {
+            if (word1Count[i] != word2Count[i]) return false;
         }
 
         return true;
